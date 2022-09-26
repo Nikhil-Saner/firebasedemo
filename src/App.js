@@ -52,7 +52,7 @@ function App(props) {
           <h4 class="navbar-brand " href="#">
             <Link className="nav-link active" to="/">
               {" "}
-              ShopiiFy
+              E-Store
             </Link>
           </h4>
 
