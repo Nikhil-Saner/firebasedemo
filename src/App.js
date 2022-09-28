@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import logo from "./logo.svg";
+import img1 from "./brand_logo.png"
 import "./App.css";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
@@ -46,15 +47,15 @@ function App(props) {
 
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-primary" style={{position:"fixed",top:"0px",width:"100%",zIndex:"10"}}>
+    <nav className="navbar navbar-expand-sm navbar-dark" style={{position:"fixed",top:"0px",width:"100%",zIndex:"10"}}>
       {/* <div className="container-fluid"> */}
         <div className="main-nav container-fluid">
-          <h4 class="navbar-brand " href="#">
+        <span class="navbar-brand " href="#">
             <Link className="nav-link active" to="/">
               {" "}
-              Shopiify
+              <img src={img1} style={{width:"8rem",height:"2rem"}}  alt="" className="rounded mt-0 mb-0"/>
             </Link>
-          </h4>
+          </span>
 
           
           <button

@@ -68,7 +68,7 @@ function Register(props) {
     style={{height:"100vh"}}
     >
       <div
-        className="container col-sm-6 col-md-6 col-lg-6"
+        className="container col-sm-6 col-md-6 col-lg-4"
         style={{ paddingTop: "5%" }}
       >
         <h3 className="text-white">
@@ -79,7 +79,7 @@ function Register(props) {
             ""
           )}
         </h3>
-        <form onSubmit={getData} className="row row-cols-1 gy-4  shadow-lg p-3 mt-3  bg-body rounded">
+        <form onSubmit={getData} className="row row-cols-1 gy-4  shadow-lg p-3 mt-3 bg-transparent rounded">
           <div className="col">
             <input
               type="text"
@@ -152,7 +152,7 @@ function Register(props) {
 
           <div className="col ">
             <button className="btn btn-primary me-5 gradient-custom-2">Register</button>
-            <span>
+            <span className="text-white">
               Already registered? <Link to="/signin">Login</Link>
             </span>
           </div>

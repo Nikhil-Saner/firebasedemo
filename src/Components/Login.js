@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../Context/Context";
+import "../Login.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import ParentApp from "./ParentApp";
 import ReactDOM from "react-dom/client";
@@ -26,25 +27,25 @@ function Login(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
-    setErrMsg("Processing....");
+    setErrMsg("Signing in...");
     setLoading(true);
     fetch(backendUrl + "/customer-management/login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("username", event.target.email.value);
+        localStorage.setItem("email", event.target.email.value);
         localStorage.setItem("role", data.role);
 
         window.onbeforeunload = () => {
           localStorage.removeItem("token");
-          localStorage.removeItem("username");
+          localStorage.removeItem("email");
           localStorage.removeItem("role");
           localStorage.removeItem("cartProducts");
         };
 
         AppCtx.setIsLoggedIn((state) => !state);
         console.log(
-          localStorage.getItem("token") + " " + localStorage.getItem("username")
+          localStorage.getItem("token") + " " + localStorage.getItem("email")
         );
         setErrMsg("");
         AppCtx.setIsHome(false);
@@ -58,69 +59,45 @@ function Login(props) {
   }
 
   return (
-    <div style={{ marginTop: AppCtx.marginTop }}>
-      <div
-        className="container-fluid col-sm-6 col-md-6 col-lg-11"
-        style={{ paddingTop: "2%" }}
-      >
-        <h3 className="text-primary">
-          {errMsg}
-          {loading ? (
-            <div class="spinner-grow text-primary" role="status"></div>
-          ) : (
-            ""
-          )}
-        </h3>
-        <div className="row shadow-lg p-3  bg-body rounded justify-content-between align-items-start"
-        style={{height:"70vh"}} >
-          <div className="col mt-5">
-            <div className="text-center demo-color">
-                <span style={{
-                 fontFamily:" 'Brush Script MT', cursive"}}>
-                    ShopiiFy
-                </span>
+    <div style={{width:"95vw",width:"100vw",height:"92vh"}} className="cst-bg">
+        <div className="row justify-content-center align-items-center mt-5" style={{height:"90vh",width:"100vw"}}>
+          <div className="col-10" align="left">
+              <form onSubmit={getData}>
+                <div className="row justify-content-center">
+                  <div className="col-9 mt-5">
+                    {errMsg==="Signing in..."?(<div className="text-success d-inline-block mb-3 cst-msg" >{errMsg}</div>):(<span className="text-danger">{errMsg}</span>)}
+                    {loading ? (<div class="spinner-border text-success" role="status"><span class="sr-only">Loading...</span></div>) : ("")}
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-9 mb-4">
+                    <input type="text" id="email" name="email" placeholder="E-mail"
+                      className="form-control form-control-lg cst-box" required/>
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-9 mb-4">
+                    <input type="password" id="password" name="password" placeholder="password"
+                      className="form-control form-control-lg cst-box" required />
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-9 mb-4">
+                    <button className="btn btn-primary btn-lg cst-btn">LOGIN</button>
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-9 mb-4">
+                    <div id="reg">
+                      <p><span id="reg-span">Not registered?</span> <Link to="/signup"> Register</Link></p>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-            <form onSubmit={getData} className="row row-cols-1 gy-4 mt-1">
-              <div className="col">
-                <input
-                  required
-                  type="text"
-                  name="email"
-                  id="email"
-                  class="form-control"
-                  placeholder="Email"
-                />
-              </div>
-              <div className="col">
-                <input
-                  required
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="form-control"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="col text-center pt-1 mb-5 pb-1">
-                <button className="btn btn-primary btn-block  gradient-custom-2 mb-3 p-2 px-5 me-3 ">Login</button>
-                <span>
-                  New User?<Link to="/signup"> Register</Link>
-                </span>
-              </div>
-            </form>
-          </div>
-
-          <div className="col-lg-6 d-flex align-items-center gradient-custom-2" style={{height:"100%"}}>
-            <div class="text-white px-3 py-4 p-md-5 mx-md-4 mt-2">
-                <h4 class="mb-4">We are more than just a company</h4>
-                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
-          </div>
         </div>
-      </div>
     </div>
   );
 }
-export default Login;
+
+export default Login; 
